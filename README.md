@@ -1,5 +1,9 @@
 
-# Implementasi Checklist Django Project
+# TUGAS 2
+
+## Deployment
+
+Tautan aplikasi PWS: []
 
 ## Membuat Proyek Django
 
