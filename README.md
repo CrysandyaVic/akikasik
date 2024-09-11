@@ -3,7 +3,7 @@
 
 ## Deployment
 
-Tautan aplikasi PWS: []
+Tautan aplikasi PWS: [https://pbp.cs.ui.ac.id/web/project/crysandya.vic/akikasik2]
 
 ## Membuat Proyek Django
 
@@ -73,7 +73,7 @@ Tautan aplikasi PWS: []
 
 ---
 ## Bagan request client ke web aplikasi berbasis Django
-![Django Bagan](Bagan request client ke web aplikasi berbasis Django)
+![Django Bagan](https://github.com/CrysandyaVic/akikasik/blob/main/bagan/Diagram.jpg)
 ## Kegunaan Git
 
 **Git** adalah sistem kontrol versi yang dikembangkan oleh Linus Torvalds. Beberapa kegunaannya adalah:
