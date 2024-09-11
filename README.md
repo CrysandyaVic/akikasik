@@ -69,7 +69,7 @@
 
 ---
 ## Bagan request client ke web aplikasi berbasis Django
-[Django Bagan](Bagan request client ke web aplikasi berbasis Django)
+![Django Bagan](Bagan request client ke web aplikasi berbasis Django)
 ## Kegunaan Git
 
 **Git** adalah sistem kontrol versi yang dikembangkan oleh Linus Torvalds. Beberapa kegunaannya adalah:
