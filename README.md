@@ -74,22 +74,21 @@
 
 **Git** adalah sistem kontrol versi yang dikembangkan oleh Linus Torvalds. Beberapa kegunaannya adalah:
 
-- **Pelacakan Perubahan**: Merekam setiap perubahan pada kode, memungkinkan rollback jika ada kesalahan.
-- **Kolaborasi**: Memfasilitasi kerja tim dengan salinan lokal yang independen.
-- **Branching dan Merging**: Pengembangan fitur secara terpisah tanpa mengganggu kode utama.
-- **Resolusi Konflik**: Menyelesaikan konflik saat banyak pengembang mengubah file yang sama.
+- **Pelacakan Perubahan**: Git memungkinkan pengembang untuk melacak setiap perubahan yang dilakukan pada kode. Ini memudahkan pengembang untuk melihat riwayat perubahan dan mengembalikan kode ke versi sebelumnya jika terjadi kesalahan.
+- **Kolaborasi**: Git memfasilitasi kerja sama pada sebuah tim dengan menyediakan salinan lokal proyek untuk setiap pengembang. Mereka dapat mengerjakan proyek secara independen dan kemudian menggabungkan perubahan ke dalam versi utama.
+- **Branching dan Merging**: Fitur branching memungkinkan pengembang untuk membuat cabang terpisah guna bekerja pada fitur atau perbaikan tertentu tanpa mengganggu kode utama. Setelah selesai, cabang tersebut dapat digabungkan kembali (merging) ke dalam versi utama.
+- **Resolusi Konflik**: Saat beberapa pengembang mengedit file yang sama, Git menyediakan mekanisme untuk mendeteksi dan menyelesaikan konflik perubahan tersebut, memastikan integritas proyek tetap terjaga.
 
 ---
 
 ## Mengapa Django Dipilih sebagai Framework untuk Pembelajaran?
 
-1. **Bahasa Python**: Karena mahasiswa sudah mempelajari Python sejak awal, penggunaan Django yang berbasis Python menjadi lebih mudah dipahami.
-2. **Banyak Referensi**: Django memiliki komunitas yang aktif dan dokumentasi lengkap, memudahkan proses pembelajaran.
-3. **Framework yang Terpercaya**: Digunakan oleh banyak perusahaan besar seperti Instagram, Pinterest, dan Mozilla.
-4. **Fleksibilitas dan Skalabilitas**: Django dapat digunakan untuk proyek kecil hingga besar dan memiliki berbagai modul siap pakai.
-
+1. **Bahasa Python**: Framework Django menggunakan bahasa pemrograman python. Bahasa pemrograman python sudah dipelajari oleh mahasiswa fasilkom sejak DDP 1 ketika semester 1, sehingga kebanyakan dari kita sudah memahami cara penulisan program dengan bahasa tersebut
+2. **Banyak Referensi**: Django memiliki komunitas yang sangat aktif dan profesional. Dokumentasi resmi Django adalah sumber daya yang sangat berharga untuk belajar, dengan tutorial, panduan referensi, dan topik lanjutan yang membantu memahami cara kerja Django.
+3. **Framework yang Terpercaya**: Django digunakan oleh banyak perusahaan terkemuka seperti Instagram, National Geographic, Spotify, Mozilla, dan Pinterest. Penggunaan yang luas ini menunjukkan kepercayaan besar pada framework ini. Django telah digunakan dalam berbagai kasus penggunaan, mulai dari aplikasi web kecil hingga aplikasi besar yang membutuhkan skalabilitas tinggi.
+4. **Fleksibilitas dan Skalabilitas**: Django dikenal karena fleksibilitas dan skalabilitasnya yang tinggi, membuatnya cocok untuk proyek-proyek web berskala besar. Selain itu, Django menyediakan modul-modul yang lengkap untuk berbagai kebutuhan, seperti modul untuk menghandle email, modul untuk menghandle file, dan lain-lain. Bahkan, Django memiliki banyak ekstensi yang dapat diinstal untuk menambahkan fitur-fitur baru ke dalam aplikasi, sehingga memungkinkan pengembang untuk menyesuaikan aplikasi dengan kebutuhan spesifik mereka.
 ---
 
 ## Mengapa Model pada Django Disebut ORM?
 
-**ORM (Object-Relational Mapping)** adalah teknik pemrograman yang memungkinkan pengelolaan database dengan konsep objek dalam bahasa pemrograman. Pada Django, model berfungsi sebagai ORM, memetakan objek Python ke tabel-tabel dalam database relasional. Ini memungkinkan pengembang berinteraksi dengan database tanpa perlu menulis query SQL langsung.
+ORM (Object-Relational Mapping) adalah teknik dalam pemrograman yang memungkinkan pengembang untuk mengelola dan berinteraksi dengan database relasional menggunakan konsep objek dalam bahasa pemrograman. ORM berfungsi sebagai jembatan antara database relasional (seperti MySQL, PostgreSQL, atau SQLite) dan kode program yang ditulis menggunakan bahasa berorientasi objek. Model pada Django disebut sebagai ORM (Object-Relational Mapping) karena berfungsi sebagai alat yang memetakan objek dalam kode Python ke tabel-tabel di database relasional. Django ORM memungkinkan pengembang bekerja dengan data dari database menggunakan konsep objek dalam bahasa Python, tanpa harus menulis query SQL secara langsung. 
