@@ -3,7 +3,7 @@
 
 ## Deployment
 
-Tautan aplikasi PWS: [https://pbp.cs.ui.ac.id/web/project/crysandya.vic/akikasik2]
+Tautan aplikasi PWS: [https://pbp.cs.ui.ac.id/web/project/crysandya.vic/akikasik]
 
 ## Membuat Proyek Django
 
@@ -291,3 +291,12 @@ path('create-product-entry', create_product_entry, name='create_product_entry'),
     path('xml/<str:id>/', show_xml_by_id, name='show_xml_by_id'),
     path('json/<str:id>/', show_json_by_id, name='show_json_by_id'),
 ```
+
+## POSTMEN
+![Django Bagan](https://github.com/CrysandyaVic/akikasik/blob/main/bagan/postman1.jpg)
+
+![Django Bagan](https://github.com/CrysandyaVic/akikasik/blob/main/bagan/postman2.jpg)
+
+![Django Bagan](https://github.com/CrysandyaVic/akikasik/blob/main/bagan/postman3.jpg)
+
+![Django Bagan](https://github.com/CrysandyaVic/akikasik/blob/main/bagan/postman4.jpg)
