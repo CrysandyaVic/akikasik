@@ -293,10 +293,10 @@ path('create-product-entry', create_product_entry, name='create_product_entry'),
 ```
 
 ## POSTMEN
-![Django Bagan](https://github.com/CrysandyaVic/akikasik/blob/main/bagan/postman1.jpg)
+![Django Bagan](https://github.com/CrysandyaVic/akikasik/blob/main/bagan/postman1.png)
 
-![Django Bagan](https://github.com/CrysandyaVic/akikasik/blob/main/bagan/postman2.jpg)
+![Django Bagan](https://github.com/CrysandyaVic/akikasik/blob/main/bagan/postman2.png)
 
-![Django Bagan](https://github.com/CrysandyaVic/akikasik/blob/main/bagan/postman3.jpg)
+![Django Bagan](https://github.com/CrysandyaVic/akikasik/blob/main/bagan/postman3.png)
 
-![Django Bagan](https://github.com/CrysandyaVic/akikasik/blob/main/bagan/postman4.jpg)
+![Django Bagan](https://github.com/CrysandyaVic/akikasik/blob/main/bagan/postman4.png)
