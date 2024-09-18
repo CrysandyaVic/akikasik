@@ -8,10 +8,13 @@ def show_main(request):
     product_entries = Products.objects.all()
 
     context = {
-        'nama' : 'Batu Sulaiman',
-        'harga': '999999999',
-        'deskripsi': 'Batu sakral yang bisa meningkatkan stamina pengguna',
-        'product_form': product_entries
+        'nama' : 'Crysandya Vic Rajendra',
+        'harga': '2306165622',
+        'deskripsi': 'PBP A',
+        'product_form': product_entries,
+        # 'namaMahasiswa' : 'Crysandya Vic Rajendra',
+        # 'npm' : '2306165622',
+        # 'kelas' : 'PBP A'
         
     }
 
