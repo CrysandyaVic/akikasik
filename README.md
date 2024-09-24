@@ -300,3 +300,9 @@ path('create-product-entry', create_product_entry, name='create_product_entry'),
 ![Django Bagan](https://github.com/CrysandyaVic/akikasik/blob/main/bagan/postman3.png)
 
 ![Django Bagan](https://github.com/CrysandyaVic/akikasik/blob/main/bagan/postman4.png)
+
+
+
+# TUGAS 4
+
+## Apa perbedaan antara HttpResponseRedirect() dan redirect()

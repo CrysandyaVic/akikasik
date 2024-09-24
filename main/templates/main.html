@@ -3,13 +3,13 @@
 <h1>AkikAsik</h1>
 
 <h5>Nama: </h5>
-<p>{{ nama }}<p>
+<p>{{ namaMahasiswa }}<p>
 
 <h5>NPM:</h5>
-<p>{{ harga }}</p>
+<p>{{ npm }}</p>
 
 <h5>Kelas:</h5>
-<p>{{ deskripsi }}</p>
+<p>{{ kelas }}</p>
 
 {% if not product_form %}
 <p>Belum ada data batu pada akikasik.</p>
@@ -17,7 +17,6 @@
 <table>
   <tr>
     <th>Nama Batu</th>
-    <!-- <th>Time</th> -->
     <th>Harga</th>
     <th>Deskripsi</th>
   </tr>
@@ -27,7 +26,6 @@
   {% for product_entry in product_form %}
   <tr>
     <td>{{ product_entry.nama }}</td>
-    <!-- <td>{{mood_entry.time}}</td> -->
     <td>{{ product_entry.harga }}</td>
     <td>{{ product_entry.deskripsi }}</td>
   </tr>
@@ -39,6 +37,10 @@
 
 <a href="{% url 'main:create_product_entry' %}">
   <button>Add New Product Entry</button>
+  <a href="{% url 'main:logout' %}">
+    <button>Logout</button>
+    <h5>Sesi terakhir login: {{ last_login }}</h5>
+  </a>
 </a>
 
 {% endblock content %}
