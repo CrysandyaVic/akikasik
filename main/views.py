@@ -17,7 +17,7 @@ from django.urls import reverse
 
 @login_required(login_url='/login')
 def show_main(request):
-    product_entries = Products.objects.all()
+    product_entries = Products.objects.filter(user=request.user)
 
     context = {
         'product_form': product_entries,
