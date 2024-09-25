@@ -572,5 +572,7 @@ DEBUG = not PRODUCTION
 ```
 
 
-
+## SS Account dan dummy
+![Django ACC1](https://github.com/CrysandyaVic/akikasik/blob/main/bagan/acc1.png)
+![Django ACC2](https://github.com/CrysandyaVic/akikasik/blob/main/bagan/acc2.png)
 
