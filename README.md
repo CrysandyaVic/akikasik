@@ -576,3 +576,479 @@ DEBUG = not PRODUCTION
 ![Django ACC1](https://github.com/CrysandyaVic/akikasik/blob/main/bagan/acc1.png)
 ![Django ACC2](https://github.com/CrysandyaVic/akikasik/blob/main/bagan/acc2.png)
 
+
+# TUGAS 5
+
+## Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
+Dalam CSS, urutan prioritas atau specificity menentukan selector mana yang akan diterapkan ketika ada beberapa selector yang cocok untuk elemen yang sama. Berikut adalah urutan prioritas pengambilan CSS selector:
+ 1. **Inline Styles**: CSS yang ditulis langsung pada elemen HTML menggunakan atribut style memiliki prioritas tertinggi.
+ 2. **ID Selectors**: Selector yang menggunakan ID memiliki prioritas tinggi. ID selector ditulis dengan tanda pagar (#).
+ 3. **Class, Attribute, dan Pseudo-class Selectors**: Selector yang menggunakan class, atribut, atau pseudo-class memiliki prioritas lebih rendah daripada ID. Class selector ditulis dengan tanda titik (.).
+ 4. **Element dan Pseudo-element Selectors**: Selector yang menggunakan nama elemen HTML atau pseudo-element memiliki prioritas terendah.
+
+## Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design!
+
+**Responsive design** adalah elemen penting dalam pengembangan aplikasi web karena memastikan tampilan dan fungsi aplikasi bisa menyesuaikan dengan baik di berbagai ukuran layar, seperti desktop, tablet, dan ponsel. Intinya, pengguna bisa merasa nyaman menggunakan aplikasi tanpa harus repot mengubah ukuran atau geser ke sana-sini, apa pun perangkat yang mereka pakai.
+
+1. **Pengalaman pengguna yang lebih baik**: Semua pengguna, entah itu dari desktop atau ponsel, bisa merasakan tampilan yang enak dilihat dan mudah digunakan.
+2. **Meningkatkan SEO**: Google suka website yang responsif, karena memberikan pengalaman yang baik. Akibatnya, website bisa tampil lebih tinggi di hasil pencarian.
+3. **Hemat biaya dan waktu**: Dengan satu desain yang bisa digunakan di semua perangkat, tidak perlu lagi membuat versi khusus untuk desktop dan mobile.
+4. **Loading lebih cepat**: Desain responsif biasanya lebih ringan, sehingga aplikasi atau website bisa terbuka lebih cepat di perangkat apa pun.
+
+Contoh yang menerapkan responsive design :
+1. Spotify
+2. Instagram
+
+Contoh yang **belum** menerapkan responsive design :
+1. Craiglist
+2. PWS
+
+## Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!
+**Margin**
+* Margin adalah ruang di **luar** batas elemen. Margin digunakan untuk memberikan jarak antara elemen satu dengan elemen lainnya. Margin tidak mempengaruhi ukuran elemen itu sendiri.
+```
+.element {
+  margin: 20px; /* Memberikan margin 20px di semua sisi */
+}
+```
+
+
+**Border**
+* Border adalah **garis** yang mengelilingi elemen. Border berada di antara margin dan padding. Border dapat diatur ketebalan, gaya, dan warnanya.
+
+```
+.element {
+  border: 2px solid black; /* Border hitam dengan ketebalan 2px */
+}
+```
+
+**Padding**
+* Padding adalah ruang di **dalam** batas elemen, antara konten elemen dan border. Padding digunakan untuk memberikan jarak di sekitar konten elemen.
+```
+.element {
+  padding: 10px; /* Memberikan padding 10px di semua sisi */
+}
+```
+
+
+## Jelaskan konsep flex box dan grid layout beserta kegunaannya!
+
+**Flexbox (Flexible Box Layout)** adalah metode tata letak satu dimensi yang digunakan untuk mengatur elemen dalam satu baris atau kolom. Flexbox sangat berguna untuk membuat tata letak yang fleksibel dan responsif. Flexbox sangat cocok untuk tata letak yang memerlukan penyesuaian dinamis, seperti menu navigasi, galeri gambar, atau tata letak kartu. 
+
+Berikut adalah beberapa fitur utama Flexbox:
+
+1. **Arah Fleksibel**: Elemen dapat diatur dalam arah horizontal (baris) atau vertikal (kolom) menggunakan properti `flex-direction`.
+Penjajaran dan Distribusi: Elemen dapat dijajarkan dan didistribusikan dengan mudah menggunakan properti seperti `justify-content`, `align-items`, dan `align-content`.
+2. **Ukuran Fleksibel**: Elemen dapat tumbuh atau menyusut untuk mengisi ruang yang tersedia menggunakan properti `flex-grow`, `flex-shrink`, dan `flex-basis`.
+3. **Urutan Elemen**: Urutan elemen dapat diubah tanpa mengubah urutan HTML menggunakan properti order.
+
+
+**Grid Layout** adalah metode tata letak dua dimensi yang memungkinkan pengaturan elemen dalam baris dan kolom. Grid Layout sangat berguna untuk membuat tata letak yang lebih kompleks dan terstruktur. Grid Layout sangat cocok untuk tata letak halaman yang kompleks seperti dashboard, halaman utama situs web, atau tata letak majalah. 
+
+Berikut adalah beberapa fitur utama Grid Layout:
+
+1. **Definisi Grid**: Grid didefinisikan menggunakan properti ```display: grid``` dan ```grid-template-rows``` serta `grid-template-columns` untuk menentukan ukuran baris dan kolom.
+2. **Penempatan Elemen**: Elemen dapat ditempatkan di area grid tertentu menggunakan properti seperti `grid-row`, `grid-column`, `grid-area`.
+3. **Jarak Antar Elemen**: Jarak antar elemen dapat diatur menggunakan properti `grid-gap` atau `gap`.
+
+
+## Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
+
+### Menambah Tailwind
+1. Menambah sebuah script CDN pada `base.html`pada bagian head
+```
+{% endblock meta %}
+<script src="https://cdn.tailwindcss.com">
+</script>
+
+```
+
+### Membuat fungsi edit dan delete product
+1. Membuat 2 fungsi pada `views.py` yang bernama `edit_product` dan `delete_product`
+```
+def edit_product(request, id):
+    # Get mood entry berdasarkan id
+    product = Products.objects.get(pk = id)
+
+    # Set mood entry sebagai instance dari form
+    form = ProductForm(request.POST or None, instance=product)
+
+    if form.is_valid() and request.method == "POST":
+        # Simpan form dan kembali ke halaman awal
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+    context = {'form': form}
+    return render(request, "edit_product.html", context)
+
+def delete_product(request, id):
+    # Get mood berdasarkan id
+    product = Products.objects.get(pk = id)
+    # Hapus mood
+    product.delete()
+    # Kembali ke halaman awal
+    return HttpResponseRedirect(reverse('main:show_main'))
+
+```
+
+2. Menambah import pada `views.py`
+```
+from django.shortcuts import .., reverse
+from django.http import .., HttpResponseRedirect
+
+```
+3. Mengupdate `urls.py` agar bisa mengakses kedua fungsi baru tersebut dengan import dan menambah urlpatterns
+```
+from main.views import edit_product
+from main.views import delete_product
+
+urlpatters :
+...
+path('edit-product/<uuid:id>', edit_product, name='edit_product'),
+path('delete/<uuid:id>', delete_product, name='delete_product'),
+
+```
+
+### Styling setiap page
+
+1. **Halaman Login** : memodifikasi login.html agar bisa memuat gambar
+```
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>Login</title>
+{% endblock meta %}
+
+{% block content %}
+<div class="bg-sky-100 flex justify-center items-center h-screen">
+  <!-- Left: Image -->
+  <div class="w-1/2 h-screen hidden lg:block">
+    <img src="https://i.pinimg.com/564x/7c/87/61/7c8761a22815c393c90e4a16a3f130a1.jpg" alt="Placeholder Image" class="object-cover w-full h-full">
+  </div>
+
+  <!-- Right: Login Form -->
+  <div class="lg:p-36 md:p-52 sm:20 p-8 w-full lg:w-1/2">
+    <h1 class="text-2xl font-semibold mb-4">Login to AkikAsik</h1>
+    <form action="" method="POST" class="space-y-6">
+      {% csrf_token %}
+      <div class="mb-4">
+        <label for="username" class="block text-gray-600">Username</label>
+        <input type="text" id="username" name="username" required class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500" autocomplete="off">
+      </div>
+      <div class="mb-4">
+        <label for="password" class="block text-gray-800">Password</label>
+        <input type="password" id="password" name="password" required class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500" autocomplete="off">
+      </div>
+      <button type="submit" class="bg-red-500 hover:bg-blue-600 text-white font-semibold rounded-md py-2 px-4 w-full">
+        Login
+      </button>
+    </form>
+
+    {% if messages %}
+    <div class="mt-4">
+      {% for message in messages %}
+      {% if message.tags == "success" %}
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                <span class="block sm:inline">{{ message }}</span>
+            </div>
+        {% elif message.tags == "error" %}
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                <span class="block sm:inline">{{ message }}</span>
+            </div>
+        {% else %}
+            <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative" role="alert">
+                <span class="block sm:inline">{{ message }}</span>
+            </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="mt-6 text-green-500 text-center">
+      <a href="{% url 'main:register' %}" class="hover:underline">Sign up Here</a>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+```
+
+2. **Halaman Register** : Memodifikasi register.html
+```
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>Register</title>
+{% endblock meta %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full space-y-8 form-style">
+    <div>
+      <h2 class="mt-6 text-center text-3xl font-extrabold text-black font-sans">
+        Create your account
+      </h2>
+    </div>
+    <form class="mt-8 space-y-6" method="POST">
+      {% csrf_token %}
+      <input type="hidden" name="remember" value="true">
+      <div class="rounded-md shadow-sm -space-y-px">
+        {% for field in form %}
+          <div class="{% if not forloop.first %}mt-4{% endif %}">
+            <!-- Centered label with text-center -->
+            <label for="{{ field.id_for_label }}" class="block text-center mb-2 font-semibold text-black font-sans">
+              {{ field.label }}
+            </label>
+            <div class="relative">
+              {{ field }}
+              <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                {% if field.errors %}
+                  <svg class="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                  </svg>
+                {% endif %}
+              </div>
+            </div>
+            {% if field.errors %}
+              {% for error in field.errors %}
+                <p class="mt-1 text-sm text-red-600">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+
+      <div>
+        <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all duration-200">
+          Register
+        </button>
+      </div>
+    </form>
+
+    {% if messages %}
+    <div class="mt-4">
+      {% for message in messages %}
+      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        <span class="block sm:inline">{{ message }}</span>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="text-center mt-4">
+      <p class="text-sm text-black font-sans">
+        Already have an account?
+        <a href="{% url 'main:login' %}" class="font-medium text-red-600 hover:text-red-800">
+          Login here
+        </a>
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+```
+
+3. **Halaman Utama** : Memodif halaman utama agar bisa menampilkan card user dan product
+
+`main.html`
+```
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'navbar.html' %}
+
+
+<div class="pt-16 max-w-7xl mx-auto">
+
+    <!-- Wrap the user card in a flex container to center it -->
+    <div class="flex justify-center items-center">
+        {% include 'card_info.html' with namaMahasiswa=namaMahasiswa npm=npm kelas=kelas %}
+    </div>
+
+    <!-- Product section -->
+    {% if not product_form %}
+    <div class="flex flex-col items-center justify-center min-h-[24rem] p-6">
+        <img src="{% static 'image/gambar-sedih.png' %}" alt="No products available" class="w-32 h-32 mb-4"/>
+        <p class="text-center text-gray-600 mt-4">Belum ada data batu pada akikasik.</p>
+    </div>
+    {% else %}
+      <!-- Check if there is only 1 product and center it accordingly -->
+      {% if product_form|length == 1 %}
+        <!-- Center the product when there is only one product -->
+        <div class="flex justify-center mt-4">
+          {% for product_entry in product_form %}
+            {% include 'card_product.html' %}
+          {% endfor %}
+        </div>
+      {% else %}
+        <!-- Use grid layout when there are multiple products -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+          {% for product_entry in product_form %}
+            {% include 'card_product.html' %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endif %}
+
+    <!-- Buttons for adding product and logging out -->
+    <div class="flex justify-center mt-8">
+      <a href="{% url 'main:create_product_entry' %}">
+        <button class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-lg">
+          Add New Product Entry
+        </button>
+      </a>
+    </div>
+
+    <!-- Box for Last Login -->
+    <div class="mt-6 flex justify-center">
+      <div class="bg-gray-100 border border-gray-300 p-4 rounded-lg text-center shadow-md">
+        <h5 class="font-semibold">Sesi terakhir login:</h5>
+        <p class="text-gray-600">{{ last_login }}</p>
+      </div>
+    </div>
+</div>
+{% endblock content %}
+
+```
+
+`card_info.html`
+
+```
+<div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 my-4 p-6"> 
+    <div class="flex flex-col items-center pb-10">
+       
+        <div class="p-2"> 
+            <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="https://i.pinimg.com/564x/09/21/fc/0921fc87aa989330b8d403014bf4f340.jpg" alt="User Image"/>
+        </div>
+
+        <h5 class="mb-1 text-2xl font-bold text-gray-900 dark:text-white">{{ namaMahasiswa }}</h5>
+       
+        <span class="text-lg text-gray-600 dark:text-gray-300">NPM: {{ npm }}</span>
+        <span class="text-lg text-gray-600 dark:text-gray-300">Kelas: {{ kelas }}</span>
+    </div>
+</div>
+```
+
+`card_product.html`
+
+```
+<div class="bg-white shadow-md rounded-lg overflow-hidden mb-4"> <!-- Use mb-4 for consistent spacing -->
+    <div class="bg-gray-100 px-4 py-2 border-b border-gray-300">
+        <h3 class="text-xl font-semibold text-gray-800">{{ product_entry.nama }}</h3>
+    </div>
+
+    <div class="p-4">
+        <p class="text-gray-700 mb-4">{{ product_entry.deskripsi }}</p>
+        <p class="text-indigo-600 text-lg font-semibold mb-4">Rp {{ product_entry.harga }}</p>
+
+        <div class="flex space-x-4">
+            <a href="{% url 'main:edit_product' product_entry.pk %}" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300">Edit</a>
+            <a href="{% url 'main:delete_product' product_entry.pk %}" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300">Delete</a>
+        </div>
+    </div>
+</div>
+```
+
+
+4. **Halaman edit dan tambah product** :
+`create_product_entry.html`
+```
+{% extends 'base.html' %}
+{% block content %}
+{% include 'navbar.html' %}
+
+<div class="pt-16 max-w-3xl mx-auto">
+    <h1 class="text-2xl font-bold text-center mb-6">Add New Product Entry</h1>
+
+    <!-- Form container with padding and centered layout -->
+    <form method="POST" class="bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4">
+        {% csrf_token %}
+        <div class="overflow-x-auto">
+            <table class="table-auto w-full border-separate border-spacing-4">
+                <!-- Render form fields with Tailwind CSS styling -->
+                {{ form.as_table }}
+                <tr>
+                    <td class="pt-4"></td>
+                    <td class="pt-4">
+                        <!-- Styled submit button -->
+                        <input type="submit" value="Add Product Entry" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg cursor-pointer">
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
+```
+
+
+`edit_product.html`
+```
+<div class="bg-white shadow-md rounded-lg overflow-hidden mb-4"> <!-- Use mb-4 for consistent spacing -->
+    <div class="bg-gray-100 px-4 py-2 border-b border-gray-300">
+        <h3 class="text-xl font-semibold text-gray-800">{{ product_entry.nama }}</h3>
+    </div>
+
+    <div class="p-4">
+        <p class="text-gray-700 mb-4">{{ product_entry.deskripsi }}</p>
+        <p class="text-indigo-600 text-lg font-semibold mb-4">Rp {{ product_entry.harga }}</p>
+
+        <div class="flex space-x-4">
+            <a href="{% url 'main:edit_product' product_entry.pk %}" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300">Edit</a>
+            <a href="{% url 'main:delete_product' product_entry.pk %}" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300">Delete</a>
+        </div>
+    </div>
+</div>
+```
+5. **Navbar** : pada folder templates di root direktori, buat `navbar.html` yang berisi
+```
+<nav class="bg-indigo-600 shadow-lg fixed top-0 left-0 z-40 w-full">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      
+      <div class="flex-shrink-0">
+        <h1 class="text-2xl font-bold text-white">AkikAsik</h1>
+      </div>
+
+     
+      <div class="hidden md:flex items-center space-x-4">
+        {% if user.is_authenticated %}
+          <span class="text-white">Welcome, {{ user.username }}</span>
+          <a href="{% url 'main:logout' %}" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg">
+            Logout
+          </a>
+        {% else %}
+          <a href="{% url 'main:login' %}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg mr-2">
+            Login
+          </a>
+          <a href="{% url 'main:register' %}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg">
+            Register
+          </a>
+        {% endif %}
+      </div>
+
+      <!-- Mobile menu button (visible on small screens) -->
+      <div class="md:hidden flex items-center">
+        <button class="mobile-menu-button">
+          <svg class="w-6 h-6 text-white" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+            <path d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Script to toggle mobile menu visibility -->
+<script>
+  const btn = document.querySelector("button.mobile-menu-button");
+  const menu = document.querySelector(".mobile-menu");
+
+  btn.addEventListener("click", () => {
+    menu.classList.toggle("hidden");
+  });
+</script>
+```
+
+
+

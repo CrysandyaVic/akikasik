@@ -1,46 +1,56 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
-<h1>AkikAsik</h1>
+{% include 'navbar.html' %}
 
-<h5>Nama: </h5>
-<p>{{ namaMahasiswa }}<p>
 
-<h5>NPM:</h5>
-<p>{{ npm }}</p>
+<div class="pt-16 max-w-7xl mx-auto">
 
-<h5>Kelas:</h5>
-<p>{{ kelas }}</p>
+    <!-- Wrap the user card in a flex container to center it -->
+    <div class="flex justify-center items-center">
+        {% include 'card_info.html' with namaMahasiswa=namaMahasiswa npm=npm kelas=kelas %}
+    </div>
 
-{% if not product_form %}
-<p>Belum ada data batu pada akikasik.</p>
-{% else %}
-<table>
-  <tr>
-    <th>Nama Batu</th>
-    <th>Harga</th>
-    <th>Deskripsi</th>
-  </tr>
+    <!-- Product section -->
+    {% if not product_form %}
+    <div class="flex flex-col items-center justify-center min-h-[24rem] p-6">
+        <img src="{% static 'image/gambar-sedih.png' %}" alt="No products available" class="w-32 h-32 mb-4"/>
+        <p class="text-center text-gray-600 mt-4">Belum ada data batu pada akikasik.</p>
+    </div>
+    {% else %}
+      <!-- Check if there is only 1 product and center it accordingly -->
+      {% if product_form|length == 1 %}
+        <!-- Center the product when there is only one product -->
+        <div class="flex justify-center mt-4">
+          {% for product_entry in product_form %}
+            {% include 'card_product.html' %}
+          {% endfor %}
+        </div>
+      {% else %}
+        <!-- Use grid layout when there are multiple products -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+          {% for product_entry in product_form %}
+            {% include 'card_product.html' %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endif %}
 
-  {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini 
-  {% endcomment %} 
-  {% for product_entry in product_form %}
-  <tr>
-    <td>{{ product_entry.nama }}</td>
-    <td>{{ product_entry.harga }}</td>
-    <td>{{ product_entry.deskripsi }}</td>
-  </tr>
-  {% endfor %}
-</table>
-{% endif %}
+    <!-- Buttons for adding product and logging out -->
+    <div class="flex justify-center mt-8">
+      <a href="{% url 'main:create_product_entry' %}">
+        <button class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-lg">
+          Add New Product Entry
+        </button>
+      </a>
+    </div>
 
-<br />
-
-<a href="{% url 'main:create_product_entry' %}">
-  <button>Add New Product Entry</button>
-  <a href="{% url 'main:logout' %}">
-    <button>Logout</button>
-    <h5>Sesi terakhir login: {{ last_login }}</h5>
-  </a>
-</a>
-
+    <!-- Box for Last Login -->
+    <div class="mt-6 flex justify-center">
+      <div class="bg-gray-100 border border-gray-300 p-4 rounded-lg text-center shadow-md">
+        <h5 class="font-semibold">Sesi terakhir login:</h5>
+        <p class="text-gray-600">{{ last_login }}</p>
+      </div>
+    </div>
+</div>
 {% endblock content %}
