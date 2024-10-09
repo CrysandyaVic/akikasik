@@ -12,15 +12,18 @@ from django.contrib.auth.decorators import login_required
 import datetime
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+from django.utils.html import strip_tags
 
 
 
 @login_required(login_url='/login')
 def show_main(request):
-    product_entries = Products.objects.filter(user=request.user)
+    
 
     context = {
-        'product_form': product_entries,
+
         'last_login': request.COOKIES['last_login'],
         'namaMahasiswa' : request.user.username,
         'npm' : '2306165622',
@@ -43,11 +46,11 @@ def create_product_entry(request):
     return render(request, "create_product_entry.html", context)
 
 def show_xml(request):
-    data = Products.objects.all()
+    data = Products.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
 
 def show_json(request):
-    data = Products.objects.all()
+    data = Products.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
 def show_xml_by_id(request, id):
@@ -118,3 +121,20 @@ def delete_product(request, id):
     product.delete()
     # Kembali ke halaman awal
     return HttpResponseRedirect(reverse('main:show_main'))
+
+@csrf_exempt
+@require_POST
+def add_product_entry_ajax(request):
+    nama = strip_tags(request.POST.get("nama"))
+    harga = request.POST.get("harga")
+    deskripsi = strip_tags(request.POST.get("deskripsi"))
+    user = request.user
+
+    new_product = Products(
+        nama=nama, harga=harga,
+        deskripsi=deskripsi,
+        user=user
+    )
+    new_product.save()
+
+    return HttpResponse(b"CREATED", status=201)

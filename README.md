@@ -1050,5 +1050,70 @@ path('delete/<uuid:id>', delete_product, name='delete_product'),
 </script>
 ```
 
+ ## Jelaskan manfaat dari penggunaan JavaScript dalam pengembangan aplikasi web!
+Penggunaan JavaScript dalam pengembangan aplikasi web memiliki beberapa manfaat yang signifikan, antara lain:
+
+1. **Aplikasi web semakin interaktif**: JavaScript memungkinkan pengembang menambahkan interaksi dinamis pada situs web, seperti pop-up, animasi, validasi formulir secara real-time, dan efek visual lainnya. Ini membantu meningkatkan pengalaman pengguna.
+
+2. **Kecepatan Eksekusi di Sisi Klien**: JavaScript dijalankan di browser pengguna (client-side), sehingga tidak perlu menunggu respons dari server untuk melakukan perubahan kecil, yang meningkatkan kecepatan eksekusi dan responsivitas aplikasi.
+
+3. **Kompatibilitas Multi-Platform**: JavaScript dapat digunakan di berbagai perangkat dan browser. Selain itu, JavaScript modern mendukung pengembangan aplikasi berbasis web yang responsif, baik di desktop maupun perangkat mobile.
+ 
+ ## Jelaskan fungsi dari penggunaan await ketika kita menggunakan fetch()! Apa yang akan terjadi jika kita tidak menggunakan await?
+Fungsi dari penggunaan await ketika menggunakan fetch() adalah untuk menunggu sampai promise yang dihasilkan oleh fetch() selesai (resolved), yaitu ketika data yang diminta telah berhasil diambil dari server atau ketika ada kesalahan yang terjadi. Dengan menggunakan await, JavaScript akan menunggu secara asynchronous hingga permintaan tersebut selesai dan menghasilkan respons sebelum melanjutkan eksekusi baris kode berikutnya. Ini memastikan bahwa respons dari server diterima dan dapat diproses secara tepat sebelum melanjutkan ke langkah selanjutnya.
+
+Jika await tidak digunakan, JavaScript tidak akan menunggu hasil dari fetch(), sehingga fetch() akan mengembalikan promise yang belum selesai (pending), yang bisa mengakibatkan data tidak tersedia saat kode mencoba mengaksesnya, karena eksekusi dilanjutkan langsung tanpa menunggu hasil fetch().
+
+ ## Mengapa kita perlu menggunakan decorator csrf_exempt pada view yang akan digunakan untuk AJAX POST?
+ Decorator csrf_exempt digunakan pada view yang menerima AJAX POST untuk menonaktifkan pemeriksaan CSRF token yang secara default diaktifkan oleh Django. Ini diperlukan jika permintaan AJAX tidak menyertakan CSRF token, karena tanpa token tersebut, Django akan memblokir permintaan dan mengembalikan error 403 Forbidden.
+
+Alasan Penggunaan:
+Kemudahan Pengujian: Selama pengembangan, csrf_exempt memudahkan pengujian tanpa harus menangani CSRF token.
+Permintaan dari Aplikasi Eksternal: Jika aplikasi pihak ketiga atau eksternal tidak menyertakan CSRF token, menggunakan csrf_exempt memungkinkan permintaan tersebut tetap diproses.
+
+
+ ## Pada tutorial PBP minggu ini, pembersihan data input pengguna dilakukan di belakang (backend) juga. Mengapa hal tersebut tidak dilakukan di frontend saja?
+
+Pembersihan data di backend tetap perlu dilakukan meskipun sudah ada validasi di frontend karena:
+
+1. Keamanan: Frontend mudah dimanipulasi oleh pengguna melalui developer tools atau skrip eksternal. Tanpa pembersihan di backend, aplikasi rentan terhadap serangan seperti XSS atau SQL Injection, sehingga backend harus memastikan semua data aman sebelum diproses.
+
+2. Konsistensi dan Kontrol: Pembersihan di backend memastikan bahwa data selalu melalui jalur validasi yang sama untuk semua pengguna, terlepas dari browser atau perangkat yang digunakan. Ini mencegah inkonsistensi dan memastikan integritas data yang masuk.
+
+3. Lapisan Perlindungan: Backend adalah lapisan terakhir dalam memastikan validitas data. Jika pembersihan hanya dilakukan di frontend, ada risiko input berbahaya dapat mencapai server. Validasi di kedua sisi memberikan perlindungan ganda terhadap eksploitasi.
+
+4. Logika Utama: Backend bertanggung jawab atas pengelolaan logika utama, seperti penyimpanan data di database. Memastikan data yang diterima aman dan sesuai sangat penting untuk menjaga keandalan aplikasi.
+ 
+ ## Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
+
+### 1. **Membuat Fungsi untuk Menambahkan Produk dengan AJAX**
+   - Buat fungsi JavaScript yang mengambil data inputan dari pengguna seperti **nama**, **harga**, dan **deskripsi produk**.
+   - Fungsi ini akan mengirimkan data tersebut ke server menggunakan `POST` request dengan **Fetch API**.
+   - Data akan dikirimkan dalam format `FormData` melalui request `POST`, dan setelah sukses, modal ditutup dan data produk di-refresh tanpa reload halaman.
+
+### 2. **Melakukan Routing**
+   - **Import** fungsi yang sudah dibuat di views ke dalam `urls.py` untuk menangani request penambahan produk baru.
+   - Tambahkan **urlpatterns** yang menghubungkan URL dengan fungsi view untuk menambahkan produk dengan AJAX. Pastikan routing ini menangani permintaan `POST`.
+
+### 3. **Mengubah Cara Menampilkan Data**
+   - **Hapus** atribut `productform` pada fungsi `views.py` yang sebelumnya digunakan untuk render form, karena sekarang data produk akan di-fetch dari endpoint JSON.
+   - Pada fungsi `show_json` dan `show_xml`, ubah nilai dari `data` menjadi `Products.objects.filter(user=request.user)` agar hanya menampilkan produk dari pengguna saat ini.
+   - **Ubah struktur HTML** di `main.html` untuk menghapus conditional blocks yang menampilkan produk secara langsung. Gantikan dengan `<div>` yang memiliki `id` sebagai placeholder di mana produk akan ditampilkan secara dinamis.
+   
+### 4. **Fetching dan Menampilkan Data Produk Asinkron**
+   - **Buat dua fungsi** dalam blok `<script>`:
+     - **getProductEntries()**: Fungsi ini bertugas untuk melakukan **fetch** data JSON dari endpoint yang sudah dibuat, lalu melakukan parsing data menjadi objek JavaScript.
+     - **refreshProductEntries()**: Fungsi ini digunakan untuk mengambil data yang sudah di-fetch dan menampilkannya di halaman secara asinkron (tanpa reload). Produk akan ditampilkan dalam elemen HTML yang sudah dibuat di langkah sebelumnya.
+
+### 5. **Mencegah XSS dengan Backend dan Frontend Proteksi**
+   - Gunakan **strip_tags** pada backend (`views.py`) untuk memastikan bahwa input pengguna tidak mengandung tag HTML atau JavaScript berbahaya.
+   - Tambahkan **DOMPurify** pada frontend untuk membersihkan data yang diambil dari server sebelum ditampilkan di halaman, sehingga lebih aman dari serangan XSS.
+
+### Hasil Akhir:
+- Ketika pengguna menambahkan produk baru melalui modal form, data akan dikirimkan ke server dengan **AJAX** tanpa perlu reload halaman.
+- Produk baru akan muncul secara dinamis di halaman setelah penambahan data berhasil.
+- Sistem sudah terlindungi dari serangan XSS di backend dan frontend.
+
+
 
 
