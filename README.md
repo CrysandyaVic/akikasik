@@ -1117,3 +1117,35 @@ Pembersihan data di backend tetap perlu dilakukan meskipun sudah ada validasi di
 
 
 
+
+
+# TUGAS 7
+
+## Jelaskan apa yang dimaksud dengan stateless widget dan stateful widget, dan jelaskan perbedaan dari keduanya.
+1. **Stateless Widget** : widget yang tidak memiliki state atau keadaan yang bisa berubah. Artinya, setelah widget ini tampil di layar, tampilan dan isinya tidak akan berubah selama widget tersebut aktif. Contoh dari Stateless Widget ini adalah widget Text, Icon, dan Container.
+
+2. **Stateful Widget** : widget yang memiliki state atau keadaan yang bisa berubah selama aplikasi berjalan. Berbeda dengan Stateless Widget, Stateful Widget dapat memperbarui tampilannya ketika terjadi perubahan pada state di dalamnya. Contoh dari Stateful Widget antara lain Checkbox, TextField, dan AnimatedContainer.
+
+## Sebutkan widget apa saja yang kamu gunakan pada proyek ini dan jelaskan fungsinya.
+## Apa fungsi dari `setState()`? Jelaskan variabel apa saja yang dapat terdampak dengan fungsi tersebut.
+Fungsi `setState()` digunakan dalam `StatefulWidget` untuk memperbarui state (keadaan) dari widget tersebut. Ketika `setState()` dipanggil, Flutter akan merender ulang tampilan atau widget yang terkait, sehingga perubahan state bisa terlihat di layar.
+
+`setState()` hanya mempengaruhi variabel-variabel atau nilai yang termasuk dalam kelas State dari `StatefulWidget`. Semua variabel yang diubah atau diperbarui dalam `setState()` akan berdampak pada tampilan widget tersebut, tapi tidak akan mempengaruhi widget lainnya di luar StatefulWidget yang sedang diperbarui.
+
+## Jelaskan perbedaan antara const dengan final.
+const:
+
+const digunakan untuk membuat variabel yang bersifat konstan dan diinisialisasi secara langsung pada saat compile time (waktu kompilasi). Ini berarti nilai dari variabel const harus sudah diketahui dan tetap saat kode dikompilasi.
+const biasanya digunakan untuk nilai-nilai konstan yang sederhana seperti angka, string, atau objek yang bisa dibuat pada saat kompilasi.
+const bisa dipakai di kelas maupun dalam pembuatan widget untuk meningkatkan efisiensi, karena const widget dianggap "immutable" (tidak bisa diubah) dan tidak perlu dirender ulang.
+Contoh:
+dart
+Copy code
+const pi = 3.14159;
+const textWidget = Text("Hello, world!", style: TextStyle(fontSize: 20));
+final:
+
+final digunakan untuk variabel yang hanya bisa diinisialisasi satu kali, tetapi nilainya bisa ditentukan pada saat runtime (waktu aplikasi berjalan). Jadi, variabel final tidak harus diketahui nilainya pada saat kompilasi.
+final biasanya digunakan ketika kita ingin sebuah variabel tidak bisa diubah setelah nilai pertamanya diatur, namun nilai itu mungkin baru tersedia saat aplikasi berjalan, seperti hasil dari API atau operasi yang bergantung pada waktu eksekusi.
+
+## Jelaskan bagaimana cara kamu mengimplementasikan checklist-checklist di atas.
